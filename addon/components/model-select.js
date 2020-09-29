@@ -40,6 +40,19 @@ export default class ModelSelectComponent extends Component{
     return this.args.source || this.store;
   }
 
+  /**
+   * Model or relationship to query, either an ember data model name or the name
+   * of a relationship on an ember data model, which is useful for when using 
+   * ember-data-has-many-query.
+   *
+   * @argument source
+   * @type {Model}
+   * @default
+   */
+  get queryName() {
+    return this.args.queryName || this.args.modelName;
+  }
+
   @service infinity;
 
   /**
@@ -300,7 +313,7 @@ export default class ModelSelectComponent extends Component{
       set(query, this.pageParam, 1);
       set(query, this.perPageParam, this.pageSize);
 
-      _options = yield this.source.query(this.args.modelName, query);
+      _options = yield this.source.query(this.queryName, query);
     }
 
     if(createOption){
